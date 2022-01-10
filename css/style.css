@@ -1,0 +1,10 @@
+* {
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+li {
+    width: 80vw;
+    font-size: 1.5rem;
+}
