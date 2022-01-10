@@ -15,7 +15,7 @@
 <body>
     <div id="app">
         <!-- lista dove stampare le mail -->
-        <ol>
+        <ol v-if = 'mailLoad'>
             <li v-for='mail in mails'>{{mail}}</li>
         </ol>
     </div>
