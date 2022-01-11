@@ -9,24 +9,34 @@ const app = new Vue({
     data: {
         mails: [],
         mailsNumShow:null,
-        mailLoad: false,
+        mailLoad:false,
     },
-    created () {
-        // attraevrso API genera email 10 volte
-        this.mailsNumShow = 10;
-        for (let i = 0; i < this.mailsNumShow; i++) {
+    methods: {
+        // funzione per ricevere una mail tramite API
+        getNewMail() {
+            let newMail;
             axios
                 .get('https://flynn.boolean.careers/exercises/api/random/mail')
                 .then((response) => {
-                    this.mails.push(response.data.response);
+                    newMail = response.data.response;
                 })
-                // errore
                 .catch((error) => {
-                    console.log(error);
+                    return error;
+                })
+                .then(()=> {
+                    this.mails.push(newMail);
+                    if(this.mails.length == this.mailsNumShow) {
+                        this.mailLoad = true;
+                    }
+                    return true;
                 })
         }
-        this.mailLoad = true;
     },
-    methods: {
+    created () {
+        this.mailsNumShow = 10;
+        for (let i = 0; i < this.mailsNumShow; i++) {
+            this.getNewMail();
+        }
+
     },
 });
